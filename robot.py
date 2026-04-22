@@ -14,7 +14,7 @@ if uploaded_file is not None:
     try:
         # Membaca data mengikut jenis fail
         if uploaded_file.name.endswith('.csv'):
-            df = pd.read_csv(uploaded_file, low_memory=False)
+            df = pd.read_csv(uploaded_file, encoding='cp1252', low_memory=False)
         else:
             df = pd.read_excel(uploaded_file)
         
