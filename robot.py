@@ -14,13 +14,15 @@ if uploaded_file is not None:
     try:
         # Membaca data mengikut jenis fail
         if uploaded_file.name.endswith('.csv'):
-           try:
+            try:
+                # Pastikan jarak di bawah ini selari
                 df = pd.read_csv(uploaded_file, encoding='cp1252', errors='replace', low_memory=False)
             except:
+                # Baris except ini mesti selari dengan try di atasnya
                 df = pd.read_csv(uploaded_file, encoding='latin1', errors='replace', low_memory=False)
         else:
             df = pd.read_excel(uploaded_file)
-        
+            
         st.success(f"✅ Fail '{uploaded_file.name}' berjaya dibaca!")
 
         # --- BAHAGIAN BARU: ANALISIS MENGIKUT PILIHAN ---
