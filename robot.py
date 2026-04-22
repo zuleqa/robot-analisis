@@ -14,7 +14,10 @@ if uploaded_file is not None:
     try:
         # Membaca data mengikut jenis fail
         if uploaded_file.name.endswith('.csv'):
-            df = pd.read_csv(uploaded_file, encoding='cp1252', low_memory=False)
+           try:
+                df = pd.read_csv(uploaded_file, encoding='cp1252', errors='replace', low_memory=False)
+            except:
+                df = pd.read_csv(uploaded_file, encoding='latin1', errors='replace', low_memory=False)
         else:
             df = pd.read_excel(uploaded_file)
         
@@ -57,7 +60,7 @@ if uploaded_file is not None:
         # 3. Analisis Statistik (Robot Kira Automatik)
         st.divider()
         st.subheader("📊 Ringkasan Statistik Data")
-        st.write(df.describe(include='all').fillna(''))
+        st.dataframe(df.describe(include='all').fillna(''))
 
         # 4. Paparan Data Penuh
         with st.expander("🔍 Lihat Data Penuh (Raw Data)"):
